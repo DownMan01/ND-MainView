@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import type { AirdropCollection } from "@/lib/types"
 import AirdropTable from "./airdrop-table"
@@ -30,23 +30,11 @@ export default function PaginatedAirdrops({
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  useEffect(() => {
-    const page = Number(searchParams.get("page")) || initialPage
-
-    if (page !== currentPage) {
-      setLoading(true) // Start loading effect
-      setTimeout(() => {
-        setCurrentPage(page)
-        setLoading(false) // Stop loading after 2 seconds
-      }, 2000) // 2-second delay
-    }
-  }, [searchParams, initialPage, currentPage])
-
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString())
     params.set("page", page.toString())
 
-    setLoading(true) // Show loading before navigating
+    setLoading(true) // Show loading state before navigation
     router.push(`${pathname}?${params.toString()}`)
   }
 
