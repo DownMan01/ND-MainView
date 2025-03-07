@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter, usePathname } from "next/navigation"
+import { useState, useEffect } from "react"
+import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import type { AirdropCollection } from "@/lib/types"
 import AirdropTable from "./airdrop-table"
 import PaginationComponent from "./ui/pagination"
@@ -24,38 +24,34 @@ export default function PaginatedAirdrops({
   initialTotalPages,
   initialFilters,
 }: PaginatedAirdropsProps) {
-  const [airdrops] = useState(initialAirdrops)
   const [currentPage, setCurrentPage] = useState(initialPage)
-  const [totalPages] = useState(initialTotalPages)
-
   const router = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const page = Number(searchParams.get("page")) || initialPage
+    if (page !== currentPage) {
+      setCurrentPage(page)
+    }
+  }, [searchParams, initialPage, currentPage])
 
   const handlePageChange = (page: number) => {
-    // Create a new URLSearchParams object
-    const params = new URLSearchParams()
+    const params = new URLSearchParams(searchParams.toString())
 
-    // Add the page parameter
     params.set("page", page.toString())
 
-    // Add any existing filters
-    if (initialFilters.search) params.set("search", initialFilters.search)
-    if (initialFilters.chain) params.set("chain", initialFilters.chain)
-    if (initialFilters.cost) params.set("cost", initialFilters.cost)
-    if (initialFilters.stage) params.set("stage", initialFilters.stage)
-
-    // Update URL with new page number and existing filters
+    // Update URL with new page number and preserve existing filters
     router.push(`${pathname}?${params.toString()}`)
     setCurrentPage(page)
   }
 
   return (
     <div>
-      <AirdropTable airdrops={airdrops} />
-      {totalPages > 1 && (
-        <PaginationComponent currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+      <AirdropTable airdrops={initialAirdrops} />
+      {initialTotalPages > 1 && (
+        <PaginationComponent currentPage={currentPage} totalPages={initialTotalPages} onPageChange={handlePageChange} />
       )}
     </div>
   )
 }
-
