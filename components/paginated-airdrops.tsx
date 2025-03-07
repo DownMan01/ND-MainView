@@ -25,32 +25,49 @@ export default function PaginatedAirdrops({
   initialFilters,
 }: PaginatedAirdropsProps) {
   const [currentPage, setCurrentPage] = useState(initialPage)
+  const [loading, setLoading] = useState(false) // Loading state
+  const [airdrops, setAirdrops] = useState<AirdropCollection[]>(initialAirdrops) // Handle new data
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
   useEffect(() => {
     const page = Number(searchParams.get("page")) || initialPage
+
     if (page !== currentPage) {
-      setCurrentPage(page)
+      setLoading(true) // Start loading effect
+      setTimeout(() => {
+        setCurrentPage(page)
+        setAirdrops(initialAirdrops) // Simulate loading new data
+        setLoading(false) // Stop loading
+      }, 800) // Adjust delay as needed
     }
-  }, [searchParams, initialPage, currentPage])
+  }, [searchParams, initialPage, currentPage, initialAirdrops])
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString())
-
     params.set("page", page.toString())
 
-    // Update URL with new page number and preserve existing filters
+    setLoading(true) // Show loading before navigating
     router.push(`${pathname}?${params.toString()}`)
-    setCurrentPage(page)
   }
 
   return (
     <div>
-      <AirdropTable airdrops={initialAirdrops} />
-      {initialTotalPages > 1 && (
-        <PaginationComponent currentPage={currentPage} totalPages={initialTotalPages} onPageChange={handlePageChange} />
+      {loading ? (
+        <div className="flex justify-center items-center py-10">
+          <svg className="animate-spin h-8 w-8 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+          </svg>
+        </div>
+      ) : (
+        <>
+          <AirdropTable airdrops={airdrops} />
+          {initialTotalPages > 1 && (
+            <PaginationComponent currentPage={currentPage} totalPages={initialTotalPages} onPageChange={handlePageChange} />
+          )}
+        </>
       )}
     </div>
   )
