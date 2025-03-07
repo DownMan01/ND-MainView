@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0, 0%, 100%;
+  --foreground: 215, 25%, 15%;
+  --card: 0, 0%, 98%;
+  --card-foreground: 215, 25%, 15%;
+  --popover: 0, 0%, 98%;
+  --popover-foreground: 215, 25%, 15%;
+  --primary: 217, 91%, 60%;
+  --primary-foreground: 210, 40%, 98%;
+  --secondary: 210, 40%, 96%;
+  --secondary-foreground: 215, 25%, 15%;
+  --muted: 210, 40%, 96%;
+  --muted-foreground: 215, 25%, 40%;
+  --accent: 217, 91%, 60%;
+  --accent-foreground: 210, 40%, 98%;
+  --destructive: 0, 84%, 60%;
+  --destructive-foreground: 210, 40%, 98%;
+  --border: 215, 25%, 90%;
+  --input: 215, 25%, 90%;
+  --ring: 217, 91%, 60%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 215, 25%, 5%;
+  --foreground: 210, 40%, 98%;
+  --card: 215, 28%, 8%;
+  --card-foreground: 210, 40%, 98%;
+  --popover: 215, 28%, 8%;
+  --popover-foreground: 210, 40%, 98%;
+  --primary: 217, 91%, 60%;
+  --primary-foreground: 210, 40%, 98%;
+  --secondary: 215, 25%, 12%;
+  --secondary-foreground: 210, 40%, 98%;
+  --muted: 215, 25%, 12%;
+  --muted-foreground: 215, 20%, 65%;
+  --accent: 217, 91%, 60%;
+  --accent-foreground: 210, 40%, 98%;
+  --destructive: 0, 84%, 60%;
+  --destructive-foreground: 210, 40%, 98%;
+  --border: 215, 25%, 12%;
+  --input: 215, 25%, 12%;
+  --ring: 217, 91%, 60%;
+}
+
+body {
+  @apply bg-background text-foreground;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-secondary;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/30;
+}
+
+/* Animations */
+@keyframes pulse-blue {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-blue {
+  animation: pulse-blue 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.glow {
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
+}
+
