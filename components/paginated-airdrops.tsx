@@ -26,7 +26,6 @@ export default function PaginatedAirdrops({
 }: PaginatedAirdropsProps) {
   const [currentPage, setCurrentPage] = useState(initialPage)
   const [loading, setLoading] = useState(false) // Loading state
-  const [airdrops, setAirdrops] = useState<AirdropCollection[]>(initialAirdrops) // Handle new data
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -38,11 +37,10 @@ export default function PaginatedAirdrops({
       setLoading(true) // Start loading effect
       setTimeout(() => {
         setCurrentPage(page)
-        setAirdrops(initialAirdrops) // Simulate loading new data
-        setLoading(false) // Stop loading
-      }, 800) // Adjust delay as needed
+        setLoading(false) // Stop loading after 2 seconds
+      }, 2000) // 2-second delay
     }
-  }, [searchParams, initialPage, currentPage, initialAirdrops])
+  }, [searchParams, initialPage, currentPage])
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -63,7 +61,7 @@ export default function PaginatedAirdrops({
         </div>
       ) : (
         <>
-          <AirdropTable airdrops={airdrops} />
+          <AirdropTable airdrops={initialAirdrops} />
           {initialTotalPages > 1 && (
             <PaginationComponent currentPage={currentPage} totalPages={initialTotalPages} onPageChange={handlePageChange} />
           )}
