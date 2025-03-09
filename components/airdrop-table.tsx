@@ -192,10 +192,10 @@ export default function AirdropTable({ airdrops }: AirdropTableProps) {
                 <td className="px-4 py-4">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      airdrop.stage === "Mainnet"
+                      airdrop.stage === "Active"
                         ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-                        : airdrop.stage === "Testnet"
-                          ? "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300"
+                        : airdrop.stage === "Upcoming"
+                          ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
                           : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
                     }`}
                   >
