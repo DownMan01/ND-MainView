@@ -15,22 +15,15 @@ export default async function Home({
     stage?: string
   }
 }) {
-  // Check if Supabase is configured
   if (!isSupabaseConfigured()) {
     return (
-      <main className="min-h-screen py-8 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-10">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">Web3 Airdrop Database</h1>
-            <p className="text-gray-500 dark:text-gray-400 max-w-3xl">
-              Discover and track the latest blockchain projects, airdrops, and protocols.
-            </p>
-          </div>
-
-          <ErrorFallback
-            message="Supabase configuration is missing. Please check your environment variables."
-            retry={false}
-          />
+      <main className="min-h-screen py-8 px-4 md:px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Web3 Airdrop Database</h1>
+          <p className="text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
+            Discover and track the latest blockchain projects, airdrops, and protocols.
+          </p>
+          <ErrorFallback message="Supabase configuration is missing. Please check your environment variables." retry={false} />
         </div>
       </main>
     )
@@ -40,14 +33,11 @@ export default async function Home({
   const pageSize = 10
 
   try {
-    // Check if we have any filters
     const hasFilters = searchParams.search || searchParams.chain || searchParams.cost || searchParams.stage
-
     let airdrops = []
     let count = 0
 
     if (hasFilters) {
-      // Use filtered query if we have filters
       const result = await getFilteredAirdropCollections(
         {
           search: searchParams.search,
@@ -62,7 +52,6 @@ export default async function Home({
       airdrops = result.data
       count = result.count
     } else {
-      // Use simple pagination if no filters
       const result = await getPaginatedAirdropCollections(page, pageSize)
       airdrops = result.data
       count = result.count
@@ -71,28 +60,30 @@ export default async function Home({
     const totalPages = Math.max(1, Math.ceil(count / pageSize))
 
     return (
-      <main className="min-h-screen py-8 px-4 md:px-8">
+      <main className="min-h-screen py-8 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-10">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">Web3 Airdrop Database</h1>
-            <p className="text-gray-500 dark:text-gray-400 max-w-3xl">
-              Discover and track the latest blockchain projects, airdrops, and protocols. Stay updated with
-              comprehensive information about Web3 innovations.
+          <div className="text-center mb-10">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Web3 Airdrop Database</h1>
+            <p className="text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
+              Discover and track the latest blockchain projects, airdrops, and protocols. Stay updated with Web3 innovations.
             </p>
           </div>
 
           <Suspense fallback={<div className="text-center py-10">Loading airdrops...</div>}>
-            <PaginatedAirdrops
-              initialAirdrops={airdrops}
-              initialPage={page}
-              initialTotalPages={totalPages}
-              initialFilters={{
-                search: searchParams.search || "",
-                chain: searchParams.chain || "",
-                cost: searchParams.cost || "",
-                stage: searchParams.stage || "",
-              }}
-            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {airdrops.map((airdrop) => (
+                <div key={airdrop.id} className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
+                  <h2 className="text-lg font-bold text-gray-900 dark:text-white">{airdrop.name}</h2>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{airdrop.description}</p>
+                  <div className="mt-4 flex justify-between items-center">
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{airdrop.chain}</span>
+                    <span className="text-sm px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full">
+                      {airdrop.stage}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </Suspense>
         </div>
       </main>
@@ -100,26 +91,17 @@ export default async function Home({
   } catch (error: any) {
     console.error("Error in Home component:", error)
 
-    // Check if it's a rate limit error
     const isRateLimit = error?.message?.includes("Too Many Requests") || error?.status === 429
 
-    // Fallback UI in case of error
     return (
-      <main className="min-h-screen py-8 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-10">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">Web3 Airdrop Database</h1>
-            <p className="text-gray-500 dark:text-gray-400 max-w-3xl">
-              Discover and track the latest blockchain projects, airdrops, and protocols.
-            </p>
-          </div>
-
+      <main className="min-h-screen py-8 px-4 md:px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Web3 Airdrop Database</h1>
+          <p className="text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
+            Discover and track the latest blockchain projects, airdrops, and protocols.
+          </p>
           <ErrorFallback
-            message={
-              isRateLimit
-                ? "We're experiencing high traffic. Please try again in a moment."
-                : "There was an error loading the data. Please try again later."
-            }
+            message={isRateLimit ? "We're experiencing high traffic. Please try again in a moment." : "There was an error loading the data. Please try again later."}
           />
         </div>
       </main>
