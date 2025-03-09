@@ -86,9 +86,9 @@ export default function AirdropDetail({ airdrop }: AirdropDetailProps) {
 
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      airdrop.stage === "active"
+                      airdrop.stage === "Active"
                         ? "bg-green-100 text-green-800 dark:bg-green-900/70 dark:text-green-300"
-                        : airdrop.stage === "upcoming"
+                        : airdrop.stage === "Upcoming"
                           ? "bg-blue-100 text-blue-800 dark:bg-blue-900/70 dark:text-blue-300"
                           : "bg-gray-100 text-gray-800 dark:bg-gray-800/70 dark:text-gray-300"
                     }`}
