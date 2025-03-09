@@ -224,21 +224,12 @@ export default async function AirdropPage({ params }: { params: { id: string } }
           </div>
         )}
 
-        {/* Project Note */}
-        {airdrop.name && (
-        <div className="mb-12">
-        <h2 className="flex items-center gap-2 text-xl font-bold mb-4 text-foreground">
-        <Info className="w-5 h-5 text-primary" />
-        Project Note
-        </h2>
-        <div className="p-6 bg-secondary/50 rounded-lg text-secondary-foreground">
-        <div className="h-px bg-secondary w-full mb-4"></div>
-        <p className="leading-relaxed text-muted-foreground">
-        For questions, you can join {airdrop.name}’s Discord/Telegram channel.</p>
-        </div>
-      </div>
-        )
-      }
+       {/* Project note */}
+          <div className="mb-12 p-6 bg-secondary/50 rounded-lg text-secondary-foreground">
+          <div className="h-px bg-secondary w-full mb-4"></div>
+          <p className="leading-relaxed text-muted-foreground">
+          For questions, you can join {airdrop.name}’s Discord/Telegram channel.</p>
+          </div>
 
 
         
