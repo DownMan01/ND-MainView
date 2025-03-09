@@ -148,9 +148,11 @@ export default async function AirdropPage({ params }: { params: { id: string } }
           </div>
         )}
 
-         {/* line */}
+         {/* line section*/}
+        <div className="mb-12">
         <div className="text-center text-muted-foreground mt-16">
           <div className="h-px bg-secondary w-full mb-4"></div>
+          </div>
           </div>
 
         {/* Requirements section */}
