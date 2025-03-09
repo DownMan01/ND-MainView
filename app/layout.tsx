@@ -28,11 +28,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "NoteDrop - Web3 Airdrop Database & Tracker",
     description: "Your comprehensive guide to blockchain airdrops and Web3 projects",
-    url: "https://app.notedrop.xyz/",
+    url: "https://www.notedrop.xyz/",
     siteName: "NoteDrop",
     images: [
       {
-        url: "https://app.notedrop.xyz/favicon.png",
+        url: "https://notedrop.xyz/favicon.png",
         width: 1200,
         height: 630,
         alt: "NoteDrop Web3 Airdrop Platform",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "NoteDrop - Web3 Airdrop Database & Tracker",
     description: "Track and discover the latest blockchain airdrops & Web3 projects",
     creator: "@notedrop",
-    images: ["https://app.notedrop.xyz/favicon.png"],
+    images: ["https://notedrop.xyz/favicon.png"],
   },
   robots: {
     index: true,
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
   ],
   alternates: {
-    canonical: "https://app.notedrop.xyz",
+    canonical: "https://notedrop.xyz",
   },
   verification: {
     google: "google-site-verification=r6FNvjUo1xmzuKi294_0aLwFmNa-a1VbaRVRdpS0y7o",
