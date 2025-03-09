@@ -70,13 +70,13 @@ export default function AirdropDetail({ airdrop }: AirdropDetailProps) {
                 <div className="flex flex-wrap gap-2 mb-3">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      airdrop.chain === "Ethereum/EVM"
+                      airdrop.chain === ""
                         ? "bg-blue-100 text-blue-800 dark:bg-blue-900/70 dark:text-blue-300"
-                        : airdrop.chain === "Solana"
+                        : airdrop.chain === ""
                           ? "bg-green-100 text-green-800 dark:bg-green-900/70 dark:text-green-300"
-                          : airdrop.chain === "BNB"
+                          : airdrop.chain === ""
                             ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/70 dark:text-yellow-300"
-                            : airdrop.chain === "Multichain"
+                            : airdrop.chain === ""
                               ? "bg-purple-100 text-purple-800 dark:bg-purple-900/70 dark:text-purple-300"
                               : "bg-secondary text-muted-foreground"
                     }`}
