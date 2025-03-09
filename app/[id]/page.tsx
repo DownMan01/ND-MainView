@@ -145,6 +145,7 @@ export default async function AirdropPage({ params }: { params: { id: string } }
         {airdrop.description && (
           <div className="mb-12 p-6 bg-secondary/50 rounded-lg text-secondary-foreground">
             <p className="leading-relaxed">{airdrop.description}</p>
+             <div className="h-px bg-secondary w-full mb-4"></div>
           </div>
         )}
 
