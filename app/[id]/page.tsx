@@ -148,6 +148,13 @@ export default async function AirdropPage({ params }: { params: { id: string } }
           </div>
         )}
 
+        {/* line section for note */}
+          <div className="mb-12">
+             <div className="text-center text-muted-foreground mt-16">
+             <div className="h-px bg-secondary w-full mb-4"></div>
+            </div>
+          </div>
+        
         {/* Requirements section */}
         <div className="mb-12">
           <h2 className="flex items-center gap-2 text-xl font-bold mb-4 text-foreground">
