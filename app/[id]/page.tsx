@@ -148,13 +148,6 @@ export default async function AirdropPage({ params }: { params: { id: string } }
           </div>
         )}
 
-         {/* line section*/}
-        <div className="mb-12">
-        <div className="text-center text-muted-foreground mt-16">
-          <div className="h-px bg-secondary w-full mb-4"></div>
-          </div>
-          </div>
-
         {/* Requirements section */}
         <div className="mb-12">
           <h2 className="flex items-center gap-2 text-xl font-bold mb-4 text-foreground">
@@ -232,16 +225,15 @@ export default async function AirdropPage({ params }: { params: { id: string } }
         )}
 
        {/* Project note */}
+         <div className="mb-12">
           <div className="text-center text-muted-foreground mt-16">
           <div className="h-px bg-secondary w-full mb-4"></div>
-             <div className="mb-12">
           <p className="leading-relaxed text-muted-foreground">
           For questions, you can join {airdrop.name}’s Discord/Telegram channel.</p>
                </div>
           </div>
 
 
-        
         {/* Footer note */}
         <div className="text-center text-muted-foreground mt-16">
           <p>Happy farming!</p>
