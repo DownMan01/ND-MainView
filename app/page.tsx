@@ -60,33 +60,18 @@ export default async function Home({
     const totalPages = Math.max(1, Math.ceil(count / pageSize))
 
     return (
-      <main className="min-h-screen py-8 px-4 md:px-6">
+      <main className="min-h-screen py-8 px-4 md:px-6 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Web3 Airdrop Database</h1>
-            <p className="text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
+            <h1 className="text-3xl md:text-4xl font-bold text-white">Web3 Airdrop Database</h1>
+            <p className="text-gray-400 max-w-3xl mx-auto">
               Discover and track the latest blockchain projects, airdrops, and protocols. Stay updated with Web3 innovations.
             </p>
           </div>
 
-          <Suspense fallback={<div className="text-center py-10">Loading airdrops...</div>}>
-            <div className="block md:hidden space-y-4">
-              {airdrops.map((airdrop) => (
-                <div key={airdrop.id} className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
-                  <h2 className="text-lg font-bold text-gray-900 dark:text-white">{airdrop.name}</h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{airdrop.description}</p>
-                  <div className="mt-4 flex justify-between items-center">
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{airdrop.chain}</span>
-                    <span className="text-sm px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full">
-                      {airdrop.stage}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Table layout for larger screens */}
-            <div className="hidden md:block">
+          {/* Search and Filters */}
+          <div className="mb-6">
+            <Suspense fallback={<div className="text-center">Loading filters...</div>}>
               <PaginatedAirdrops
                 initialAirdrops={airdrops}
                 initialPage={page}
@@ -98,8 +83,63 @@ export default async function Home({
                   stage: searchParams.stage || "",
                 }}
               />
-            </div>
-          </Suspense>
+            </Suspense>
+          </div>
+
+          {/* Mobile View: Crypto-Themed Cards */}
+          <div className="block md:hidden space-y-4">
+            {airdrops.map((airdrop) => (
+              <div
+                key={airdrop.id}
+                className="bg-gray-800/60 backdrop-blur-md shadow-lg border border-gray-700 rounded-xl p-5 relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-xl opacity-50"></div>
+                <div className="relative">
+                  <h2 className="text-xl font-bold text-white">{airdrop.name}</h2>
+                  <p className="text-sm text-gray-400 mt-2">{airdrop.description}</p>
+                  <div className="mt-4 flex justify-between items-center">
+                    <span className="text-sm font-medium text-blue-400">{airdrop.chain}</span>
+                    <span
+                      className={`text-sm px-3 py-1 rounded-full ${
+                        airdrop.stage === "Active"
+                          ? "bg-green-500 text-white"
+                          : "bg-yellow-500 text-gray-900"
+                      }`}
+                    >
+                      {airdrop.stage}
+                    </span>
+                  </div>
+                  <div className="mt-4 flex justify-between items-center">
+                    <span
+                      className={`text-xs px-3 py-1 rounded-full ${
+                        airdrop.cost === 0 ? "bg-blue-600 text-white" : "bg-red-500 text-white"
+                      }`}
+                    >
+                      {airdrop.cost === 0 ? "FREE" : "PAID"}
+                    </span>
+                    <button className="text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 px-4 py-1.5 rounded-lg">
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop View: Table Layout */}
+          <div className="hidden md:block">
+            <PaginatedAirdrops
+              initialAirdrops={airdrops}
+              initialPage={page}
+              initialTotalPages={totalPages}
+              initialFilters={{
+                search: searchParams.search || "",
+                chain: searchParams.chain || "",
+                cost: searchParams.cost || "",
+                stage: searchParams.stage || "",
+              }}
+            />
+          </div>
         </div>
       </main>
     )
@@ -109,10 +149,10 @@ export default async function Home({
     const isRateLimit = error?.message?.includes("Too Many Requests") || error?.status === 429
 
     return (
-      <main className="min-h-screen py-8 px-4 md:px-6">
+      <main className="min-h-screen py-8 px-4 md:px-6 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Web3 Airdrop Database</h1>
-          <p className="text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-bold text-white">Web3 Airdrop Database</h1>
+          <p className="text-gray-400 max-w-3xl mx-auto">
             Discover and track the latest blockchain projects, airdrops, and protocols.
           </p>
           <ErrorFallback
