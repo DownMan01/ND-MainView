@@ -223,19 +223,21 @@ export default async function AirdropPage({ params }: { params: { id: string } }
             </ul>
           </div>
         )}
-
-       {/* Project note */}
-         <div className="mb-12">
-          <div className="text-center text-muted-foreground mt-16">
-          <p className="leading-relaxed text-muted-foreground">
-          For questions, you can join {airdrop.name}’s Discord/Telegram channel.</p>
-               </div>
+        
+        {/* line section for note */}
+          <div className="mb-12">
+             <div className="text-center text-muted-foreground mt-16">
+             <div className="h-px bg-secondary w-full mb-4"></div>
+            </div>
           </div>
- <div className="mb-12">
-          <div className="text-center text-muted-foreground mt-16">
-          <div className="h-px bg-secondary w-full mb-4"></div>
+        
+          {/* Project note */}
+          <div className="mb-12">
+            <div className="text-center text-muted-foreground mt-16">
+            <p className="leading-relaxed text-muted-foreground">
+              For questions, you can join {airdrop.name}’s Discord/Telegram channel.</p>
+            </div>
           </div>
-    </div>
 
         {/* Footer note */}
         <div className="text-center text-muted-foreground mt-16">
